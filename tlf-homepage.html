@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Latina Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+/* ── TOKENS ── */
+:root {
+  --white:   #FFFFFF;
+  --cream:   #F7F3ED;
+  --cream-2: #EFE9DF;
+  --ink:     #1A1410;
+  --ink-2:   #3D3028;
+  --ink-3:   #7A6A5A;
+  --line:    #E2D9CE;
+  --rust:    #8C3820;
+  --sage:    #4E6B44;
+  --teal:    #2A6358;
+  --rose:    #9A4A4A;
+  --purple:  #6A3880;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SKIP LINK ── */
+.skip { position: absolute; top: -50px; left: 1rem; background: var(--rust); color: #fff; padding: .5rem 1rem; z-index: 9999; border-radius: 0 0 6px 6px; font-size: .85rem; text-decoration: none; transition: top .2s; }
+.skip:focus { top: 0; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 4rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo img { height: 44px; display: block; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--ink-3); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 400; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--ink) !important; color: #fff !important; padding: .5rem 1.3rem; border-radius: 40px; letter-spacing: .06em !important; font-weight: 500 !important; transition: background .2s !important; }
+.nav-cta:hover { background: var(--rust) !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hero-left {
+  padding: 7rem 4rem 5rem 4rem;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  border-right: 1px solid var(--line);
+}
+
+.hero-label {
+  font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 400; margin-bottom: 3rem;
+  opacity: 0; animation: up .9s ease .05s forwards;
+}
+
+.hero-h1 {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(3.8rem, 6.5vw, 7rem);
+  line-height: 1.0;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 3rem;
+  opacity: 0; animation: up .9s ease .15s forwards;
+}
+.hero-h1 em { font-style: italic; }
+
+.hero-sub {
+  font-size: 1rem; color: var(--ink-3); font-weight: 300;
+  max-width: 360px; line-height: 1.8; margin-bottom: 3rem;
+  opacity: 0; animation: up .9s ease .25s forwards;
+}
+
+.hero-btns {
+  display: flex; gap: .75rem; flex-wrap: wrap;
+  opacity: 0; animation: up .9s ease .35s forwards;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: 'DM Sans', sans-serif; font-size: .8rem;
+  letter-spacing: .07em; text-transform: uppercase; font-weight: 500;
+  text-decoration: none; border-radius: 40px;
+  padding: .75rem 1.75rem; transition: all .22s;
+}
+.btn-dark  { background: var(--ink); color: #fff; }
+.btn-dark:hover  { background: var(--rust); transform: translateY(-1px); }
+.btn-line  { border: 1px solid var(--ink); color: var(--ink); }
+.btn-line:hover  { background: var(--ink); color: #fff; transform: translateY(-1px); }
+.btn-rust  { background: var(--rust); color: #fff; }
+.btn-rust:hover  { background: #7a3018; transform: translateY(-1px); }
+.btn-sage  { background: var(--sage); color: #fff; }
+.btn-sage:hover  { background: #3a5232; transform: translateY(-1px); }
+.btn-teal  { background: var(--teal); color: #fff; }
+.btn-teal:hover  { background: #1e4a42; transform: translateY(-1px); }
+.btn-line-rust { border: 1px solid var(--rust); color: var(--rust); }
+.btn-line-rust:hover { background: var(--rust); color: #fff; transform: translateY(-1px); }
+
+/* ── HERO RIGHT ── */
+.hero-right {
+  position: relative; overflow: hidden;
+  background: var(--cream);
+  display: flex; align-items: flex-end;
+  padding: 3rem;
+}
+.hero-photo-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(170deg, #D4B090 0%, #A87860 35%, #7A5038 70%, #3E2010 100%);
+}
+.hero-badge {
+  position: relative; z-index: 2;
+  background: rgba(255,255,255,.94);
+  border-left: 3px solid var(--rust);
+  border-radius: 0 10px 10px 0;
+  padding: .9rem 1.3rem;
+}
+.hero-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--ink); font-weight: 600; }
+.hero-badge span { font-size: .75rem; color: var(--ink-3); font-weight: 300; }
+
+/* ── SCROLL HINT ── */
+.scroll-hint {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  opacity: 0; animation: up .9s ease .9s forwards;
+}
+.scroll-hint span { font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); writing-mode: vertical-rl; }
+.scroll-line { width: 1px; height: 48px; background: var(--line); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:.4}50%{opacity:1} }
+
+/* ── SECTION HELPERS ── */
+.section { padding: 7rem 4rem; }
+.section-cream { background: var(--cream); padding: 7rem 4rem; }
+.section-cream-2 { background: var(--cream-2); padding: 7rem 4rem; }
+
+.s-eyebrow {
+  font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 400; margin-bottom: 1.5rem; display: block;
+}
+.s-heading {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 300; line-height: 1.1; color: var(--ink);
+}
+.s-heading em { font-style: italic; }
+.s-body { font-size: .975rem; color: var(--ink-3); line-height: 1.85; font-weight: 300; max-width: 560px; }
+
+/* ── THIS IS A HOME ── */
+.home-section {
+  background: var(--white);
+  padding: 7rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.home-left {}
+.home-right {}
+.home-script {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-weight: 300; font-style: italic;
+  color: var(--ink); line-height: 1.05;
+  margin-bottom: 2rem;
+}
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.pillar { border-top: 1px solid var(--line); padding-top: 1.5rem; }
+.pillar-num {
+  font-family: 'Cormorant', serif; font-size: .8rem; font-weight: 300;
+  color: var(--ink-3); letter-spacing: .1em; margin-bottom: .75rem; display: block;
+}
+.pillar-name {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600;
+  color: var(--ink); margin-bottom: .4rem;
+}
+.pillar-desc { font-size: .85rem; color: var(--ink-3); line-height: 1.65; font-weight: 300; }
+
+/* ── FOUNDER ── */
+.founder-section {
+  background: var(--cream);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+}
+.founder-img {
+  background: linear-gradient(160deg, #C8957A 0%, #9A6848 40%, #6A3A28 75%, #3A1A0A 100%);
+  position: relative; display: flex; align-items: flex-end; padding: 3rem;
+}
+.founder-img-tag {
+  background: rgba(255,255,255,.95); border-left: 3px solid var(--rust);
+  border-radius: 0 10px 10px 0; padding: .9rem 1.3rem;
+}
+.founder-img-tag strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: .95rem; color: var(--ink); font-weight: 600; }
+.founder-img-tag span { font-size: .72rem; color: var(--ink-3); }
+.founder-txt {
+  padding: 7rem 5rem; display: flex; flex-direction: column; justify-content: center;
+}
+.founder-pullquote {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-weight: 300; font-style: italic;
+  color: var(--ink); line-height: 1.25;
+  margin-bottom: 2rem;
+  position: relative; padding-left: 2rem;
+}
+.founder-pullquote::before {
+  content: '';
+  position: absolute; left: 0; top: .3em;
+  width: 3px; height: 1em;
+  background: var(--rust);
+}
+.founder-attr {
+  font-size: .8rem; color: var(--ink-3); letter-spacing: .08em;
+  text-transform: uppercase; margin-bottom: 1.75rem; font-weight: 400;
+}
+.founder-bio { font-size: .975rem; color: var(--ink-3); line-height: 1.85; font-weight: 300; margin-bottom: 2rem; max-width: 440px; }
+
+/* ── PROGRAMS ── */
+.programs-section { background: var(--white); padding: 7rem 4rem; }
+.programs-intro { margin-bottom: 4rem; max-width: 680px; }
+.programs-intro .s-heading { margin-bottom: 1.25rem; }
+.programs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--line); border: 1.5px solid var(--line); }
+.prog-card {
+  background: var(--white); padding: 2.5rem 2rem;
+  transition: background .25s;
+  display: flex; flex-direction: column;
+}
+.prog-card:hover { background: var(--cream); }
+.prog-num { font-family: 'Cormorant', serif; font-size: .8rem; color: var(--ink-3); letter-spacing: .1em; margin-bottom: 2rem; font-weight: 300; }
+.prog-icon {
+  width: 40px; height: 40px; margin-bottom: 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.prog-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; }
+.prog-tag { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); font-weight: 400; margin-bottom: .75rem; }
+.prog-desc { font-size: .84rem; color: var(--ink-3); line-height: 1.7; font-weight: 300; flex: 1; margin-bottom: 1.5rem; }
+.prog-link {
+  font-size: .72rem; text-transform: uppercase; letter-spacing: .12em;
+  text-decoration: none; color: var(--ink); font-weight: 500;
+  display: inline-flex; align-items: center; gap: .4rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .25rem; transition: border-color .2s, color .2s; width: fit-content;
+  margin-top: auto;
+}
+.prog-link:hover { border-color: var(--ink); }
+
+/* ── FIND PATH ── */
+.path-section {
+  background: var(--cream-2);
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+}
+.path-left { padding: 7rem 4rem; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+.path-right { padding: 7rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+.path-q { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--ink); margin-bottom: 1.5rem; line-height: 1.4; }
+.path-opts { display: grid; gap: .6rem; }
+.path-opt {
+  display: flex; align-items: center; gap: .85rem;
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: .85rem 1.1rem; background: var(--white);
+  font-size: .875rem; color: var(--ink-2); cursor: pointer;
+  transition: all .2s; text-align: left; font-family: 'DM Sans', sans-serif;
+}
+.path-opt:hover { border-color: var(--ink); transform: translateX(4px); }
+.path-opt.on { border-color: var(--rust); background: #FDF6F3; color: var(--rust); }
+.path-opt-dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; flex-shrink: 0; transition: background .2s; }
+.path-opt.on .path-opt-dot { background: var(--rust); border-color: var(--rust); }
+.path-result {
+  display: none; margin-top: 1.25rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: var(--white); font-size: .875rem; color: var(--ink-2); line-height: 1.7;
+}
+.path-result strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--ink); margin-bottom: .3rem; }
+.path-result a { color: var(--rust); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── TESTIMONIALS ── */
+.test-section { background: var(--white); padding: 7rem 0; overflow: hidden; }
+.test-intro { padding: 0 4rem; margin-bottom: 4rem; }
+.test-scroll { display: flex; gap: 1.5rem; padding: .5rem 4rem 2.5rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; cursor: grab; }
+.test-scroll::-webkit-scrollbar { height: 4px; }
+.test-scroll::-webkit-scrollbar-track { background: var(--line); border-radius: 2px; }
+.test-scroll::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 2px; }
+.test-card {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 12px;
+  padding: 2.25rem 2rem; min-width: 340px; max-width: 340px;
+  scroll-snap-align: start; flex-shrink: 0;
+  position: relative; transition: transform .22s;
+}
+.test-card:hover { transform: translateY(-3px); }
+.test-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+.test-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; font-weight: 300; color: var(--ink-2); line-height: 1.75; margin-bottom: 1.75rem; }
+.test-author { display: flex; align-items: center; gap: .75rem; }
+.test-av { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 500; font-size: .75rem; }
+.test-name { font-weight: 500; font-size: .875rem; color: var(--ink); }
+.test-role { font-size: .75rem; color: var(--ink-3); font-weight: 300; }
+
+/* ── INVOLVE ── */
+.involve-section { background: var(--cream); padding: 7rem 4rem; border-top: 1px solid var(--line); }
+.involve-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1.5px solid var(--line); margin-top: 4rem; }
+.inv-card { padding: 3rem 2.5rem; border-right: 1px solid var(--line); background: var(--cream); transition: background .22s; }
+.inv-card:last-child { border-right: none; }
+.inv-card:hover { background: var(--white); }
+.inv-num { font-family: 'Cormorant', serif; font-size: .8rem; color: var(--ink-3); letter-spacing: .1em; margin-bottom: 2rem; display: block; font-weight: 300; }
+.inv-icon { width: 44px; height: 44px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: center; }
+.inv-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; }
+.inv-desc { font-size: .875rem; color: var(--ink-3); line-height: 1.75; font-weight: 300; margin-bottom: 1.75rem; }
+
+/* ── CTA BANNER ── */
+.cta-section {
+  background: var(--ink); padding: 8rem 4rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(140,56,32,.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-big {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 300; font-style: italic; color: #fff;
+  line-height: 1.05; margin-bottom: 1.75rem;
+  position: relative; z-index: 1;
+}
+.cta-sub {
+  font-size: 1rem; color: rgba(255,255,255,.55);
+  max-width: 460px; margin: 0 auto 3rem; font-weight: 300; line-height: 1.8;
+  position: relative; z-index: 1;
+}
+.cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-white:hover { background: var(--cream); transform: translateY(-1px); }
+.btn-white-line { border: 1px solid rgba(255,255,255,.3); color: rgba(255,255,255,.85); }
+.btn-white-line:hover { border-color: rgba(255,255,255,.7); color: #fff; transform: translateY(-1px); }
+
+/* ── FOOTER ── */
+footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,.07); padding: 4rem 4rem 2rem; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3.5rem; }
+.footer-logo img { height: 44px; display: block; margin-bottom: 1.25rem; }
+.footer-about { font-size: .85rem; color: rgba(255,255,255,.38); line-height: 1.75; font-weight: 300; margin-bottom: 1.5rem; }
+.footer-email { color: rgba(255,255,255,.38); font-size: .82rem; text-decoration: none; display: block; margin-bottom: 1.5rem; transition: color .2s; }
+.footer-email:hover { color: rgba(255,255,255,.7); }
+.footer-social { display: flex; gap: .6rem; }
+.soc { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(255,255,255,.45); transition: border-color .2s, color .2s; }
+.soc:hover { border-color: rgba(255,255,255,.5); color: rgba(255,255,255,.85); }
+.footer-col h4 { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 1.1rem; font-weight: 400; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: .55rem; }
+.footer-col a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .875rem; font-weight: 300; transition: color .2s; }
+.footer-col a:hover { color: rgba(255,255,255,.8); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding-top: 1.75rem; display: flex; justify-content: space-between; align-items: center; font-size: .75rem; color: rgba(255,255,255,.22); }
+
+/* ── ANIMATIONS ── */
+@keyframes up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .75s ease, transform .75s ease; }
+.rl { opacity: 0; transform: translateX(-18px); transition: opacity .75s ease, transform .75s ease; }
+.rr { opacity: 0; transform: translateX(18px); transition: opacity .75s ease, transform .75s ease; }
+.rv.in, .rl.in, .rr.in { opacity: 1; transform: none; }
+.d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+.d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to main content</a>
+
+<!-- ── NAV ── -->
+<nav role="navigation" aria-label="Main navigation">
+  <a href="#" aria-label="The Latina Foundation">
+    <img src="tlf-logo.png" alt="The Latina Foundation" height="44">
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#">Home</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="https://www.thelatinafoundation.org/events">Events</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="https://www.thelatinafoundation.org/getinvolved">Get Involved</a></li>
+    <li><a href="https://www.thelatinafoundation.org/donate1" class="nav-cta">Donate</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+
+<!-- ── HERO ── -->
+<section class="hero" aria-label="Welcome">
+  <div class="hero-left">
+    <div class="hero-label">Latina-led · Austin, Texas · 501(c)(3)</div>
+    <h1 class="hero-h1">
+      A Safe Haven<br>for Latinas<br><em>Building<br>What's Next</em>
+    </h1>
+    <p class="hero-sub">Entrepreneurship. Leadership. Community.<br>Rooted in cultura.</p>
+    <div class="hero-btns">
+      <a href="https://www.thelatinafoundation.org/getinvolved" class="btn btn-dark">Join the Community</a>
+      <a href="#programs" class="btn btn-line">Explore Programs</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-bg" aria-hidden="true"></div>
+    <div class="hero-badge">
+      <strong>The Latina Foundation</strong>
+      <span>Austin, Texas — Est. 2020</span>
+    </div>
+  </div>
+</section>
+
+<div class="scroll-hint" aria-hidden="true">
+  <div class="scroll-line"></div>
+  <span>Scroll</span>
+</div>
+
+<!-- ── THIS IS A HOME ── -->
+<section class="home-section rv" id="community" aria-labelledby="home-title">
+  <div class="home-left">
+    <span class="s-eyebrow">Our Community</span>
+    <h2 class="home-script" id="home-title">
+      This Is<br>a Home
+    </h2>
+    <p class="s-body">This is more than a foundation. This is a community where you are seen, supported, and celebrated.</p>
+  </div>
+  <div class="home-right">
+    <div class="pillars">
+      <div class="pillar rv d1">
+        <span class="pillar-num">01</span>
+        <div class="pillar-name">Sisterhood</div>
+        <p class="pillar-desc">Turn your idea into something real. Together.</p>
+      </div>
+      <div class="pillar rv d2">
+        <span class="pillar-num">02</span>
+        <div class="pillar-name">Safe Space</div>
+        <p class="pillar-desc">Stronger, secure, and renewed. A place where you belong.</p>
+      </div>
+      <div class="pillar rv d3">
+        <span class="pillar-num">03</span>
+        <div class="pillar-name">Leadership</div>
+        <p class="pillar-desc">Community-led spaces for connection and growth.</p>
+      </div>
+      <div class="pillar rv d4">
+        <span class="pillar-num">04</span>
+        <div class="pillar-name">Rest</div>
+        <p class="pillar-desc">Cultural experiences that bring us together.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOUNDER ── -->
+<section class="founder-section" id="story" aria-labelledby="founder-title">
+  <div class="founder-img rl" role="img" aria-label="Bessy Martinez, Founder and Director of Impact">
+    <div class="founder-img-tag" aria-hidden="true">
+      <strong>Bessy Martinez</strong>
+      <span>Founder &amp; Director of Impact</span>
+    </div>
+  </div>
+  <div class="founder-txt rr">
+    <span class="s-eyebrow">Meet Our Founder</span>
+    <blockquote class="founder-pullquote" id="founder-title" aria-label="Founder quote">
+      "I built this because I didn't have it."
+    </blockquote>
+    <p class="founder-attr">Bessy Martinez · Founder</p>
+    <p class="founder-bio">
+      Hola, I'm Bessy Martinez. I created The Latina Foundation to be the space I wish I had — a safe, powerful, and culture-rooted community where Latinas can rise, rest, and rebuild.
+    </p>
+    <a href="https://www.thelatinafoundation.org/about" class="btn btn-rust" aria-label="Read our full story">
+      Read Our Story
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ── PROGRAMS ── -->
+<section class="programs-section rv" id="programs" aria-labelledby="programs-title">
+  <div class="programs-intro">
+    <span class="s-eyebrow">Our Programs</span>
+    <h2 class="s-heading" id="programs-title">Explore Our<br><em>Programs</em></h2>
+    <p class="s-body" style="margin-top:1.25rem;">Whether you are starting a business, advancing your career, or searching for your people, there is a pathway built for where you are right now.</p>
+  </div>
+  <div class="programs-grid" role="list">
+
+    <article class="prog-card" role="listitem" aria-label="Entrepreneurship program">
+      <div class="prog-num">01</div>
+      <div class="prog-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--rust)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="prog-name">Entrepreneurship</div>
+      <div class="prog-tag">Closes: Access to Capital</div>
+      <p class="prog-desc">Turn your idea into a business. Access funding, networks, and guidance built for first-gen founders.</p>
+      <a href="https://www.thelatinafoundation.org/programs" class="prog-link" aria-label="Explore Entrepreneurship program">
+        Explore
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="prog-card" role="listitem" aria-label="Career and Leadership program">
+      <div class="prog-num">02</div>
+      <div class="prog-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </div>
+      <div class="prog-name">Career &amp; Leadership</div>
+      <div class="prog-tag">Closes: Advancement Gaps</div>
+      <p class="prog-desc">Advance professionally with skill-building, real opportunities, and leadership development for you.</p>
+      <a href="https://www.thelatinafoundation.org/programs" class="prog-link" aria-label="Explore Career and Leadership program">
+        Explore
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="prog-card" role="listitem" aria-label="Mentorship program">
+      <div class="prog-num">03</div>
+      <div class="prog-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="prog-name">Mentorship</div>
+      <div class="prog-tag">Closes: First-Gen Gap</div>
+      <p class="prog-desc">Connect with guides who have walked the same path and are ready to open doors and share their roadmap.</p>
+      <a href="https://www.thelatinafoundation.org/programs" class="prog-link" aria-label="Explore Mentorship program">
+        Explore
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="prog-card" role="listitem" aria-label="Community program">
+      <div class="prog-num">04</div>
+      <div class="prog-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="prog-name">Community</div>
+      <div class="prog-tag">Closes: Isolation</div>
+      <p class="prog-desc">Find your people. Austin Latinas Unidas creates warm, grounded spaces where you are seen and celebrated.</p>
+      <a href="https://www.thelatinafoundation.org/programs" class="prog-link" aria-label="Explore Community program">
+        Explore
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── FIND YOUR PATH ── -->
+<section class="path-section" aria-labelledby="path-title">
+  <div class="path-left rl">
+    <span class="s-eyebrow">Find Your Pathway</span>
+    <h2 class="s-heading" id="path-title" style="margin-bottom:1.5rem;">Not Sure<br><em>Where to Start?</em></h2>
+    <p class="s-body" style="margin-bottom:2.5rem;">You don't lack ambition. You might just need clarity on the next step.</p>
+    <a href="https://www.thelatinafoundation.org/getinvolved" class="btn btn-dark">
+      Get Involved
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="path-right rr" role="form" aria-label="Pathway finder quiz">
+    <p class="path-q">Where are you on your journey right now?</p>
+    <div class="path-opts" role="radiogroup" aria-label="Select your situation">
+      <button class="path-opt" data-k="entrepreneurship" aria-pressed="false">
+        <span class="path-opt-dot" aria-hidden="true"></span>
+        I want to start or grow a business
+      </button>
+      <button class="path-opt" data-k="career" aria-pressed="false">
+        <span class="path-opt-dot" aria-hidden="true"></span>
+        I want to advance my career or find new opportunities
+      </button>
+      <button class="path-opt" data-k="mentorship" aria-pressed="false">
+        <span class="path-opt-dot" aria-hidden="true"></span>
+        I need guidance. I don't know my next step
+      </button>
+      <button class="path-opt" data-k="community" aria-pressed="false">
+        <span class="path-opt-dot" aria-hidden="true"></span>
+        I am looking for community and a place to belong
+      </button>
+    </div>
+    <div class="path-result" id="path-result" role="alert" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="test-section" aria-labelledby="test-title">
+  <div class="test-intro rv">
+    <span class="s-eyebrow">Community Voices</span>
+    <h2 class="s-heading" id="test-title">Real Stories<br><em>from Our Community</em></h2>
+  </div>
+  <div class="test-scroll" role="list" aria-label="Testimonials">
+    <div class="test-card" role="listitem">
+      <div class="test-bar" style="background:var(--rust);"></div>
+      <p class="test-text">"This foundation gave me more than resources. It gave me a roadmap and people who had actually walked the path before me. I didn't feel alone for the first time."</p>
+      <div class="test-author">
+        <div class="test-av" style="background:var(--rust);">ML</div>
+        <div><div class="test-name">María L.</div><div class="test-role">JOM Participant · Austin, TX</div></div>
+      </div>
+    </div>
+    <div class="test-card" role="listitem">
+      <div class="test-bar" style="background:var(--sage);"></div>
+      <p class="test-text">"I came in not knowing how to start my business. I left with a plan, a mentor, and a community that cheers for me like family. This is something different."</p>
+      <div class="test-author">
+        <div class="test-av" style="background:var(--sage);">CR</div>
+        <div><div class="test-name">Carmen R.</div><div class="test-role">Entrepreneur · Round Rock, TX</div></div>
+      </div>
+    </div>
+    <div class="test-card" role="listitem">
+      <div class="test-bar" style="background:var(--teal);"></div>
+      <p class="test-text">"Growing up first-gen means always guessing what the next step is. TLF was the first place that laid it out clearly and made me feel like I truly belonged here."</p>
+      <div class="test-author">
+        <div class="test-av" style="background:var(--teal);">AS</div>
+        <div><div class="test-name">Ana S.</div><div class="test-role">Career Program · San Marcos, TX</div></div>
+      </div>
+    </div>
+    <div class="test-card" role="listitem">
+      <div class="test-bar" style="background:var(--rose);"></div>
+      <p class="test-text">"The mentorship program connected me with someone who had been exactly where I was. For the first time, I had someone in my corner who truly understood the barriers I was facing."</p>
+      <div class="test-author">
+        <div class="test-av" style="background:var(--rose);">LG</div>
+        <div><div class="test-name">Lucia G.</div><div class="test-role">Mentorship Program · Cedar Park, TX</div></div>
+      </div>
+    </div>
+    <div class="test-card" role="listitem">
+      <div class="test-bar" style="background:var(--purple);"></div>
+      <p class="test-text">"Austin Latinas Unidas gave me community I didn't know I needed. I showed up alone and left with sisters. Every event feels like coming home to a family I chose."</p>
+      <div class="test-author">
+        <div class="test-av" style="background:var(--purple);">VR</div>
+        <div><div class="test-name">Valentina R.</div><div class="test-role">ALU Member · Austin, TX</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GET INVOLVED ── -->
+<section class="involve-section rv" aria-labelledby="involve-title">
+  <span class="s-eyebrow">Join Us</span>
+  <h2 class="s-heading" id="involve-title">Many Ways<br><em>to Show Up</em></h2>
+  <div class="involve-grid">
+    <div class="inv-card rv d1">
+      <span class="inv-num">01</span>
+      <div class="inv-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      </div>
+      <div class="inv-name">Join the Community</div>
+      <p class="inv-desc">Apply to programs, attend events, and connect with Latinas who get it.</p>
+      <a href="https://www.thelatinafoundation.org/getinvolved" class="btn btn-dark">Get Involved</a>
+    </div>
+    <div class="inv-card rv d2">
+      <span class="inv-num">02</span>
+      <div class="inv-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="inv-name">Donate</div>
+      <p class="inv-desc">Your support funds free and low-cost programming that changes the trajectory of Latina lives.</p>
+      <a href="https://www.thelatinafoundation.org/donate1" class="btn btn-line-rust">Donate Now</a>
+    </div>
+    <div class="inv-card rv d3">
+      <span class="inv-num">03</span>
+      <div class="inv-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--ink-2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="inv-name">Partner With Us</div>
+      <p class="inv-desc">Open doors, offer mentorship, and create pipelines into opportunity for Latinas in Central Texas.</p>
+      <a href="mailto:info@thelatinafoundation.org" class="btn btn-teal">Let's Connect</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" aria-labelledby="cta-title">
+  <h2 class="cta-big" id="cta-title">Ready to Find<br><em>Your Pathway?</em></h2>
+  <p class="cta-sub">You don't have to figure out what's next alone. Community, roadmaps, and real opportunities are here.</p>
+  <div class="cta-btns">
+    <a href="https://www.thelatinafoundation.org/getinvolved" class="btn btn-white">Start Your Journey</a>
+    <a href="https://www.thelatinafoundation.org/donate1" class="btn btn-white-line">Support Our Work</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer role="contentinfo" aria-label="Site footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><img src="tlf-logo.png" alt="The Latina Foundation" height="44"></div>
+      <p class="footer-about">A Latina-led nonprofit providing community and clear pathways for first-gen Latinas in Austin, Texas. 501(c)(3).</p>
+      <a href="mailto:info@thelatinafoundation.org" class="footer-email">info@thelatinafoundation.org</a>
+      <div class="footer-social">
+        <a href="https://www.thelatinafoundation.org" class="soc" aria-label="Website" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/thelatinafoundation" class="soc" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/thelatinafoundation" class="soc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/the-latina-foundation" class="soc" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <nav aria-label="Programs links"><div class="footer-col"><h4>Programs</h4><ul>
+      <li><a href="https://www.thelatinafoundation.org/programs">Entrepreneurship</a></li>
+      <li><a href="https://www.thelatinafoundation.org/programs">Career &amp; Leadership</a></li>
+      <li><a href="https://www.thelatinafoundation.org/programs">Mentorship</a></li>
+      <li><a href="https://www.thelatinafoundation.org/programs">Community</a></li>
+    </ul></div></nav>
+    <nav aria-label="Organization links"><div class="footer-col"><h4>Organization</h4><ul>
+      <li><a href="https://www.thelatinafoundation.org/about">About Us</a></li>
+      <li><a href="https://www.thelatinafoundation.org/about">Our Team</a></li>
+      <li><a href="https://www.thelatinafoundation.org/events">Events</a></li>
+      <li><a href="https://www.thelatinafoundation.org/press">Press</a></li>
+    </ul></div></nav>
+    <nav aria-label="Get involved links"><div class="footer-col"><h4>Get Involved</h4><ul>
+      <li><a href="https://www.thelatinafoundation.org/getinvolved">Join a Program</a></li>
+      <li><a href="https://www.thelatinafoundation.org/donate1">Donate</a></li>
+      <li><a href="mailto:info@thelatinafoundation.org">Partner With Us</a></li>
+      <li><a href="https://www.thelatinafoundation.org/getinvolved">Volunteer</a></li>
+    </ul></div></nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 The Latina Foundation · Austin, Texas · 501(c)(3)</span>
+    <span>Made with corazón for our comunidad.</span>
+  </div>
+</footer>
+
+<script>
+/* ── QUIZ ── */
+const QA = {
+  entrepreneurship: { title: 'Entrepreneurship Pathway', body: 'Our JOM program and entrepreneur resources help you access capital, networks, and guidance.', url: 'https://www.thelatinafoundation.org/programs' },
+  career:           { title: 'Career & Leadership Pathway', body: 'Let us connect you to opportunities, skills, and people who can open the right doors for you.', url: 'https://www.thelatinafoundation.org/programs' },
+  mentorship:       { title: 'Mentorship Pathway', body: 'A mentor who has walked this path before can change everything. Let us connect you with the right guide.', url: 'https://www.thelatinafoundation.org/programs' },
+  community:        { title: 'Community Pathway', body: 'Austin Latinas Unidas and our events are waiting for you. You deserve a space where you are fully seen.', url: 'https://www.thelatinafoundation.org/getinvolved' }
+};
+document.querySelectorAll('.path-opt').forEach(btn => {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.path-opt').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); });
+    this.classList.add('on'); this.setAttribute('aria-pressed', 'true');
+    const a = QA[this.dataset.k];
+    const el = document.getElementById('path-result');
+    el.innerHTML = `<strong>${a.title}</strong>${a.body} <a href="${a.url}">Explore &rarr;</a>`;
+    el.style.display = 'block';
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv, .rl, .rr').forEach(el => obs.observe(el));
+
+/* ── TESTIMONIAL DRAG SCROLL ── */
+const scroll = document.querySelector('.test-scroll');
+if (scroll) {
+  let down = false, sx = 0, sl = 0;
+  scroll.addEventListener('mousedown', e => { down = true; sx = e.pageX - scroll.offsetLeft; sl = scroll.scrollLeft; scroll.style.cursor = 'grabbing'; });
+  scroll.addEventListener('mouseleave', () => { down = false; scroll.style.cursor = 'grab'; });
+  scroll.addEventListener('mouseup',   () => { down = false; scroll.style.cursor = 'grab'; });
+  scroll.addEventListener('mousemove', e => { if (!down) return; e.preventDefault(); const x = e.pageX - scroll.offsetLeft; scroll.scrollLeft = sl - (x - sx) * 1.5; });
+}
+</script>
+</body>
+</html>
