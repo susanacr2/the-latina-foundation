@@ -27,7 +27,6 @@
   --warm-gray:    #8B7060;
   --white:        #ffffff;
   --banner:       #FCF0E6;
-  /* Single Amsterdam size used everywhere */
   --amsterdam-size: clamp(24px, 2.6vw, 36px);
 }
 
@@ -108,7 +107,6 @@ nav ul li a {
 }
 nav ul li a:hover { color: var(--primary); }
 
-/* ── MODERN BUTTONS ── */
 .btn-donate {
   background: var(--primary);
   color: #fff;
@@ -127,6 +125,7 @@ nav ul li a:hover { color: var(--primary); }
   transform: translateY(-1px);
 }
 
+/* ── BUTTONS ── */
 .btn-primary {
   background: var(--primary);
   color: #fff;
@@ -177,13 +176,23 @@ nav ul li a:hover { color: var(--primary); }
   background: var(--white);
 }
 
+/* Hero headline: each line has its own block with space between */
 .hero h1 {
   font-family: 'Amsterdam', cursive;
   font-size: clamp(28px, 3.2vw, 44px);
-  line-height: 1.45;
+  line-height: 1;
   color: var(--ink);
   margin-bottom: 28px;
   letter-spacing: .01em;
+}
+
+.hero h1 .line {
+  display: block;
+}
+
+/* Gap between "A Safe Haven for Latinas" and "Building What's Next" */
+.hero h1 .line + .line {
+  margin-top: 20px;
 }
 
 .hero h1 em {
@@ -265,7 +274,6 @@ nav ul li a:hover { color: var(--primary); }
 /* ── SHARED SECTION ── */
 section { padding: 88px 60px; }
 
-/* All Amsterdam headings use the same size */
 .section-title {
   font-family: 'Amsterdam', cursive;
   font-size: var(--amsterdam-size);
@@ -302,7 +310,6 @@ section { padding: 88px 60px; }
   border: 1px solid var(--cream-deep);
   transition: transform .2s, box-shadow .2s;
 }
-
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 32px rgba(194,92,51,.10);
@@ -365,18 +372,16 @@ section { padding: 88px 60px; }
   padding: 20px;
 }
 
-/* eyebrow — Montserrat only, no Amsterdam label */
+/* Amsterdam eyebrow, no Montserrat label */
 .founder-eyebrow {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
+  font-family: 'Amsterdam', cursive;
+  font-size: var(--amsterdam-size);
+  color: var(--ink);
+  margin-bottom: 22px;
+  letter-spacing: .01em;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .founder-eyebrow::before {
@@ -386,15 +391,6 @@ section { padding: 88px 60px; }
   background: var(--primary);
   display: block;
   flex-shrink: 0;
-}
-
-/* founder h2 uses same Amsterdam size */
-.founder h2 {
-  font-family: 'Amsterdam', cursive;
-  font-size: var(--amsterdam-size);
-  color: var(--ink);
-  margin-bottom: 22px;
-  letter-spacing: .01em;
 }
 
 .blockquote {
@@ -450,10 +446,7 @@ section { padding: 88px 60px; }
   border: 1px solid var(--cream-deep);
   transition: box-shadow .2s;
 }
-
-.prog-card:hover {
-  box-shadow: 0 8px 28px rgba(194,92,51,.09);
-}
+.prog-card:hover { box-shadow: 0 8px 28px rgba(194,92,51,.09); }
 
 .prog-img {
   height: 170px;
@@ -673,7 +666,6 @@ section { padding: 88px 60px; }
 }
 
 .events-cta { text-align: center; margin-top: 40px; }
-
 .events-cta a {
   color: var(--primary);
   font-weight: 600;
@@ -692,12 +684,14 @@ section { padding: 88px 60px; }
   padding: 88px 60px;
 }
 
+/* "Stay Connected" split into two lines with gap */
 .newsletter h2 {
   font-family: 'Amsterdam', cursive;
   font-size: var(--amsterdam-size);
   color: var(--ink);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   letter-spacing: .01em;
+  line-height: 1.6;
 }
 
 .newsletter p {
@@ -858,7 +852,14 @@ footer ul li a:hover { color: var(--primary); }
 <!-- ══ HERO ══ -->
 <section class="hero" style="padding:72px 48px 72px 60px">
   <div class="hero-text">
-    <h1>A Safe Haven for <em>Latinas</em> Building What's Next</h1>
+    <!--
+      The two lines of the headline are split into separate .line spans
+      so the 20px gap between them is controlled precisely.
+    -->
+    <h1>
+      <span class="line">A Safe Haven for <em>Latinas</em></span>
+      <span class="line">Building What's Next</span>
+    </h1>
     <p>This is more than a foundation. This is a community where you are seen, supported, and celebrated by women who understand your journey.</p>
     <div class="hero-btns">
       <button class="btn-primary">Join the Community</button>
@@ -905,7 +906,7 @@ footer ul li a:hover { color: var(--primary); }
     <div class="card">
       <!--
         CARD IMAGE — file name: card-sisterhood.jpg
-        Square photo, 200x200px. Women laughing, together.
+        200x200px square. Women laughing together.
         Replace div with:
         <img src="card-sisterhood.jpg" style="width:84px;height:84px;border-radius:12px;object-fit:cover;margin:0 auto 22px;display:block" alt="Sisterhood">
       -->
@@ -916,7 +917,7 @@ footer ul li a:hover { color: var(--primary); }
     <div class="card">
       <!--
         CARD IMAGE — file name: card-safe-space.jpg
-        Square photo, 200x200px. Intimate warm gathering.
+        200x200px square. Intimate warm gathering.
         Replace div with:
         <img src="card-safe-space.jpg" style="width:84px;height:84px;border-radius:12px;object-fit:cover;margin:0 auto 22px;display:block" alt="Safe Space">
       -->
@@ -927,7 +928,7 @@ footer ul li a:hover { color: var(--primary); }
     <div class="card">
       <!--
         CARD IMAGE — file name: card-leadership.jpg
-        Square photo, 200x200px. Woman speaking or leading.
+        200x200px square. Woman speaking or leading.
         Replace div with:
         <img src="card-leadership.jpg" style="width:84px;height:84px;border-radius:12px;object-fit:cover;margin:0 auto 22px;display:block" alt="Leadership">
       -->
@@ -938,7 +939,7 @@ footer ul li a:hover { color: var(--primary); }
     <div class="card">
       <!--
         CARD IMAGE — file name: card-rest.jpg
-        Square photo, 200x200px. Retreat, nature, warmth.
+        200x200px square. Retreat, nature, warmth.
         Replace div with:
         <img src="card-rest.jpg" style="width:84px;height:84px;border-radius:12px;object-fit:cover;margin:0 auto 22px;display:block" alt="Rest">
       -->
@@ -965,8 +966,8 @@ footer ul li a:hover { color: var(--primary); }
     </span>
   </div>
   <div class="founder-content">
+    <!-- Amsterdam font only, no Montserrat label above -->
     <div class="founder-eyebrow">Meet Our Founder</div>
-    <h2>Bessy Martinez</h2>
     <div class="blockquote">"I built this because I didn't have it."</div>
     <p>Hola, I'm Bessy Martinez. I created The Latina Foundation to be the space I wish I had, a safe, powerful, and cultura-rooted community where Latinas can rise, rest, and rebuild.</p>
     <a href="#" class="btn-link">Read Our Story</a>
@@ -1110,13 +1111,12 @@ footer ul li a:hover { color: var(--primary); }
   Wide lifestyle photo, warm, women together. 1600x700px.
 
   TO ADD THE IMAGE:
-  1. Save your photo as cta-background.jpg in the same folder as this file.
-  2. In the CSS, change .cta-band background to:
+  1. Save as cta-background.jpg in the same folder as index.html.
+  2. Change .cta-band background to:
        background: url('cta-background.jpg') center/cover no-repeat;
-  3. Change .cta-band h2 color to #fff
-  4. Change .cta-band p color to rgba(255,255,255,.85)
-  5. Uncomment the overlay block below inside .cta-band::before in the CSS.
-  6. Update .cta-btns .btn-secondary to: border-color:rgba(255,255,255,.5); color:#fff
+  3. Change .cta-band h2 and .cta-band p colors to #fff / rgba(255,255,255,.85)
+  4. Add overlay: .cta-band::before { content:''; position:absolute; inset:0; background:rgba(28,20,18,.5); z-index:0; }
+  5. Update .btn-secondary to: border-color:rgba(255,255,255,.5); color:#fff
 -->
 <section class="cta-band">
   <div class="cta-band-inner">
@@ -1159,7 +1159,11 @@ footer ul li a:hover { color: var(--primary); }
 
 <!-- ══ NEWSLETTER ══ -->
 <section class="newsletter">
-  <h2>Stay Connected</h2>
+  <!--
+    "Stay" and "Connected" are on separate lines with the Amsterdam
+    line-height creating natural space between them.
+  -->
+  <h2>Stay<br>Connected</h2>
   <p>Get updates on events, programs, and opportunities created for you.</p>
   <div class="form-row">
     <input type="email" placeholder="Your email address">
@@ -1173,7 +1177,7 @@ footer ul li a:hover { color: var(--primary); }
   <div class="footer-brand">
     <!--
       FOOTER LOGO — file name: logo-white.png (or logo-white.svg)
-      Same logo reversed to white or light color for dark background.
+      Same logo reversed to white for the dark footer background.
       Replace div with:
       <img src="logo-white.png" height="40" alt="The Latina Foundation">
     -->
